@@ -40,13 +40,13 @@ export default function TodoPage({
       return;
     }
 
-    const todo: Todo = {
+    const data: Todo = {
       id: Date.now(),
       text: newTodo,
       completed: false,
     };
     AddTodo(newTodo, userId);
-    setLocalTodos([...todos, todo]);
+    setLocalTodos([...localTodos, data]);
     setNewTodo("");
   };
 
@@ -54,7 +54,7 @@ export default function TodoPage({
 
   const handleDeleteTodo = async (id: number) => {
     await DeleteTodo(id, userId);
-    setLocalTodos(todos.filter((todo) => todo.id !== id));
+    setLocalTodos(localTodos.filter((todo) => todo.id !== id));
   };
 
   const openEditDialog = (todo: Todo) => {
@@ -68,7 +68,7 @@ export default function TodoPage({
     if (editText.trim() === "" || !editingTodo) return;
     await EditTodo(todoId, userId, editText);
     setLocalTodos(
-      todos.map((todo) =>
+      localTodos.map((todo) =>
         todo.id === editingTodo.id ? { ...todo, text: editText } : todo
       )
     );
