@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Check, Edit, LogOut, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import EditDialog from "./EditDialog";
 import { AddTodo, DeleteTodo, EditTodo } from "@/app/lib/Todos";
@@ -51,13 +50,7 @@ export default function TodoPage({
     setNewTodo("");
   };
 
-  const handleToggleComplete = (id: number) => {
-    setLocalTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
+
 
   const handleDeleteTodo = async (id: number) => {
     await DeleteTodo(id, userId);
@@ -145,11 +138,6 @@ export default function TodoPage({
                   className="flex items-center justify-between rounded-xl border p-2 md:p-4 shadow-md"
                 >
                   <div className="flex items-center gap-4">
-                    <Checkbox
-                      checked={todo.completed}
-                      onCheckedChange={() => handleToggleComplete(todo.id)}
-                      id={`todo-${todo.id}`}
-                    />
                     <label
                       htmlFor={`todo-${todo.id}`}
                       className={`text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 ${
